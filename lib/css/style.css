@@ -1,0 +1,55 @@
+.error {
+    background: none repeat scroll 0 0 pink;
+    border: 1px solid maroon !important;
+    color: #000000;
+}
+h1.error, div.error {
+    background-image: url("../images/s_error.png");
+    background-position: 5px 50%;
+    background-repeat: no-repeat;
+    border-color: #333333;
+}
+div.error h1 {
+    border-color: #FF0000;
+}
+
+div.notice, div.error, div.success {
+    background-position: 10px 50%;
+    background-repeat: no-repeat;
+    border: 1px solid;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 1px #FFFFFF inset;
+    margin: 0.5em 0 1.3em;
+    padding: 10px 10px 10px 25px;
+}
+
+.success {
+    background-color: #EBF8A4;
+    color: #000000;
+}
+h1.success, div.success {
+    background-image: url("../images/s_success.png");
+    background-position: 5px 50%;
+    background-repeat: no-repeat;
+    border-color: #A2D246;
+}
+.success h1 {
+    border-color: #00FF00;
+}
+.notice {
+    background-color: #fff4c9;
+    color: #000000;
+}
+h1.notice, div.notice, div.footnotes {
+    background-image: url("../images/s_notice.png");
+    background-position: 5px 50%;
+    background-repeat: no-repeat;
+    border-color: #b5ab85;
+}
+.notice h1 {
+    border-color: #FFB10A;
+}
+
+.error, .success, .notice {
+    clear: both;
+}
