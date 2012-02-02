@@ -64,11 +64,11 @@ class Database {
 		$exit = false; // Flag, it will allow us to exit if there is even one check that returns false, but get all the errors.
 		
 		if (!$this->isTableSet()) { 
-			
+			$this->super->Error->record("No table selected. ", __CLASS__, __LINE__, __FUNCTION__);	
 		}
 		
 		if (!$this->isMysqliSet()) {
-		
+			$this->super->Error->record("Mysqli credentials missing or wrong. ", __CLASS__, __LINE__, __FUNCTION__);
 		}
 			
 			
@@ -82,7 +82,7 @@ class Database {
  * @param $table
  * @return array
  */
-	private function getFieldsInfo() {
+	public function getFieldsInfo() {
 		$this->doChecks();
 		if ($result = $this->mysqli->query("SELECT * FROM ".$this->table)) {
 			$fields = $result->fetch_fields();
@@ -125,7 +125,7 @@ class Database {
 		$fields = $this->getFieldsInfo();
 		
 		if ($fields) {
-			$query = "INSERT INTO $table (";
+			$query = "INSERT INTO ".$this->table." (";
 			$query_suffix = " VALUES (";
 			$bind_str = "";
 			$bind_values = array();
@@ -293,9 +293,9 @@ class Database {
 		}
 	}
 	 * That is given that you have a database with three Rows, ID, name, and dob.
-	 * 
+	 * default $conditions is an empty array, this will return everything in the table.
 	 */
-	public function selectRows($conditions, $glue = 'AND') {
+	public function selectRows($conditions = array(), $glue = 'AND', $order = "ORDER BY ID") {
 		
 		$this->doChecks();
 		
@@ -323,6 +323,7 @@ class Database {
 			//Append more query, to just after the WHERE keyword
 			$query .= " FROM {$this->table} WHERE ";
 			$bind_str .= '';
+			$bind_values = array();
 			
 			//Make sure $conditions parameter is an array.
 			//Should probably make this check for a 2D array.
@@ -354,17 +355,22 @@ class Database {
 					
 				}
 				
+				if (count($bind_values) > 0) {
 				//Remove the additional $glue from the query string
-				$query = substr($query, 0, -(strlen($glue)+1));
-			
+					$query = substr($query, 0, -(strlen($glue)+1));
+				} else {
+					$query = substr($query, 0, -6);
+				}
+			$query .= $order;
 			//Send the prepared statment
 			if ($stmt=$this->mysqli->prepare($query)) {
 				
 				//Use call_user_func_array rather then $stmt->bind_param('s', $val);
 				//Because we have a variable number of parameters.
+				if (count($bind_values) > 0) {				
 				$params = array_merge(array($bind_str), &$bind_values);
 				call_user_func_array(array($stmt, 'bind_param'), $params);
-				
+				}
 				//Execute the statement
 				$stmt->execute();
 				

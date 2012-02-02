@@ -11,15 +11,38 @@ class Core {
 
     public $Database;
     public $Error;
+    public $Utilities;
+    
+    private $default_page;
+
     
     
     public function Core() {
         $this->Error = new Error($this);
         $this->Database = new Database($this);
+        $this->Utilities = new Utilities($this);
         
     
     }
-
+    public function setDefaultPage($page) {
+        $this->default_page = $page;
+    }
+    public function get() {
+        if (isset($_GET['p']))
+            return $_GET['p'];
+        else
+            return $this->default_page;
+    }
+    public function displayDBErrors() {
+        
+        if ($this->Error->getErrorCount() > 0) {
+            $errors = $this->Error->report();
+            $msg = "Database Class Returned Errors:<br />".$errors;
+            return $this->Utilities->drawNotice($msg, "error");
+            
+        }
+        
+    }
 
 }
 
