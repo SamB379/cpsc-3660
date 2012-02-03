@@ -58,8 +58,26 @@ case "insert":
                     }
 break;
 case "view":
+    $fields = $Core->Database->getFieldsInfo();
+    $datas = $Core->Database->selectRows();
     
-    var_dump($Core->Database->selectRows());
+    
+    echo '<table><tr>';
+    foreach($fields as $field) {
+        echo '<th>'.ucfirst($field).'</th>';
+        $row .= '<td>'.$data[$field].'</td>';    
+    }
+    echo "</tr>";
+    foreach ($datas as $data) {
+        echo '<tr>';
+        foreach($data as $key => $d) {
+            if (in_array($key, $fields))
+                echo '<td>'.$d.'</td>';
+        }
+        echo '</tr>';
+    }
+    echo '</table>';
+    
     break;
                   }
                     
