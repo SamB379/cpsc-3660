@@ -23,7 +23,7 @@ class Database {
 		$this->username = $username;
 		$this->password = $password;
 		$this->setDB($db);
-		$this->mysqli = new mysqli("localhost", "root", "root", "CRM");	
+		$this->mysqli = new mysqli($host, $username, $password, $db);	
 	}
 	
 	public function setDB($db) {
