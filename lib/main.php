@@ -8,15 +8,23 @@
     require_once('database.class.php');
     require_once('utilities.class.php');
     require_once('form.class.php');
+    require_once('site.class.php');
     
     error_reporting(E_ALL^E_NOTICE);
 
     $Core = new Core();
+    $Site = new Site();
+    
     $Core->Database->setTable('user');
-    $Core->Database->setCredentials('localhost', 'root', 'root', 'CRM');
+    $Core->Database->setCredentials('localhost', 'exile_3660', '3660pr0j3ct', 'exile_3660');
     $Core->setDefaultPage("insert");
     //Page Variable
     $p = $Core->get();
+    
+    $Site->setTitle("Client Relation Management");
+    $Site->addCSS("./css/easy.css");
+    $Site->addCSS("./css/style.css");
+    
     
     $Form = new Form();
     $Form->openFieldset("Lets insert into User table");
@@ -25,13 +33,8 @@
      $Form->closeFieldSet();
      $Form->submit("", "submit","Insert");
 
-?><html>
-    <head>
-        <title>Client Relational Managment</title>
-        <link rel="stylesheet" href="./css/easy.css" />
-        <link rel="stylesheet" href="./css/style.css" />
-    </head>
-    <body>
+	echo $Site->startDraw();
+?>
     <div id="container">
     <div id="header">
         <h1>Client Relational Management</h1>
@@ -91,6 +94,4 @@ case "view":
             
         </div>
     </div>
-        
-    </body>
-</html>
+<? echo $Site->endDraw(); ?>
