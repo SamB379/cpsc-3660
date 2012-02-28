@@ -18,7 +18,7 @@ class Site {
 		$oData = "";
 		if (is_array($this->css_list)) {
 		foreach($this->css_list as $css) {
-			$oData .= '<link rel="stylesheet" href="'.$css.'" />\n';	
+			$oData .= '<link rel="stylesheet" href="'.$css.'" />'.$this->nl();	
 		}
 		}
 		return $oData;
@@ -28,7 +28,7 @@ class Site {
 		$oData = "";
 		if (is_array($this->js_list)) {
 		foreach ($this->js_list as $js) 
-			$oData .= '<script type="text/javascript" src="'.$js.'"></script>';
+			$oData .= '<script type="text/javascript" src="'.$js.'"></script>'.$this->nl();
 		}
 		return $oData;
 	}
@@ -36,19 +36,19 @@ class Site {
 	public function startDraw() {
 		$oData .= '
 			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">\n';
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">'.$this->nl();
 			$oData .= $this->buildHead();
-			$oData .= '<body>';
+			$oData .= '<body>'.$this->nl();
 			
 			return $oData;
 	}
 	
 	private function buildHead() {
-		$oData .= '<head>\n';
-		$oData .= '<title>'.$title.'</title>\n';
+		$oData .= '<head>'.$this->nl();
+		$oData .= '<title>'.$title.'</title>'.$this->nl();
 		$oData .= $this->buildCSS();
 		$oData .= $this->buildJS();
-		$oData .= '</head>\n';	
+		$oData .= '</head>'.$this->nl();	
 		return $oData;
 	}
 	
@@ -57,8 +57,12 @@ class Site {
 	}
 	
 	public function endDraw() {
-		$oData .= '</body></html>';	
+		$oData .= '</body></html>'.$this->nl();	
 		return $oData;
+	}
+	
+	private function nl() {
+		return "\n";	
 	}
 	
 }
