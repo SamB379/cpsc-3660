@@ -38,14 +38,7 @@
     <div id="container">
     <div id="header">
         <h1>Client Relational Management</h1>
-		</br></br>
-		
-        <ul id="nav">
-            <li><a href="?p=insert">Insert Into User Table</a></li>
-            <li><a href="?p=view">View User Table</a></li>
-			</ul>
-			</br>
-			
+		</br></br>	
 
         
     </div>
@@ -174,76 +167,211 @@
                   
 switch($p) 
 {
-	case "insert":                    
-                    echo $Form->Build();
-                    if (isset($_POST['submit'])) {
-                        
-                      $ID = $Core->Database->insertRow($_POST);
-                      
-                      if ($ID > 0) {
-                        echo $Core->Utilities->drawNotice("Data inserted successfully", "success");
-                      } else
-                        echo $Core->Utilities->drawNotice("Data not inserted successfully", "error");
-                    }
-	break;
-	
-	case "view":
-    $fields = $Core->Database->getFieldsInfo();
-    $datas = $Core->Database->selectRows();
-    
-    
-    echo '<table><tr>';
-    foreach($fields as $field) {
-        echo '<th>'.ucfirst($field).'</th>';
-        $row .= '<td>'.$data[$field].'</td>';    
-    }
-    echo "</tr>";
-    foreach ($datas as $data) {
-        echo '<tr>';
-        foreach($data as $key => $d) {
-            if (in_array($key, $fields))
-                echo '<td>'.$d.'</td>';
-        }
-        echo '</tr>';
-    }
-    echo '</table>';
-    
-    break;
 	///////////////////VIEW///////////////////////
 	case "viewusers":
-	echo '<h3> Viewing Users</h3>';
+		echo '<h3> Viewing Users</h3>';
+		$fields = $Core->Database->getFieldsInfo();
+		$datas = $Core->Database->selectRows();
+		
+		
+		echo '<table><tr>';
+		foreach($fields as $field) {
+			echo '<th>'.ucfirst($field).'</th>';
+			$row .= '<td>'.$data[$field].'</td>';    
+		}
+		echo "</tr>";
+		foreach ($datas as $data) {
+			echo '<tr>';
+			foreach($data as $key => $d) {
+				if (in_array($key, $fields))
+					echo '<td>'.$d.'</td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table>';
 	break;
 	
 	case "viewclients":
-	echo '<h3> Viewing Clients</h3>';
+		echo '<h3> Viewing Clients</h3>';
+		$Core->Database->setTable('client');
+		$fields = $Core->Database->getFieldsInfo();
+		$datas = $Core->Database->selectRows();
+		
+		
+		echo '<table><tr>';
+		foreach($fields as $field) {
+			echo '<th>'.ucfirst($field).'</th>';
+			$row .= '<td>'.$data[$field].'</td>';    
+		}
+		echo "</tr>";
+		foreach ($datas as $data) {
+			echo '<tr>';
+			foreach($data as $key => $d) {
+				if (in_array($key, $fields))
+					echo '<td>'.$d.'</td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table>';
 	break;
 	
     case "vieworganizations":
-	echo '<h3> Viewing Organizations</h3>';
+		echo '<h3> Viewing Organizations</h3>';
+		$Core->Database->setTable('organization');
+		$fields = $Core->Database->getFieldsInfo();
+		$datas = $Core->Database->selectRows();
+		
+		
+		echo '<table><tr>';
+		foreach($fields as $field) {
+			echo '<th>'.ucfirst($field).'</th>';
+			$row .= '<td>'.$data[$field].'</td>';    
+		}
+		echo "</tr>";
+		foreach ($datas as $data) {
+			echo '<tr>';
+			foreach($data as $key => $d) {
+				if (in_array($key, $fields))
+					echo '<td>'.$d.'</td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table>';
 	break;
 	
     case "viewcommrecords":
-	echo '<h3> Viewing Communication Records</h3>';
+		echo '<h3> Viewing Communication Records</h3>';
+		$Core->Database->setTable('communicationrecord');
+		$fields = $Core->Database->getFieldsInfo();
+		$datas = $Core->Database->selectRows();
+		
+		
+		echo '<table><tr>';
+		foreach($fields as $field) {
+			echo '<th>'.ucfirst($field).'</th>';
+			$row .= '<td>'.$data[$field].'</td>';    
+		}
+		echo "</tr>";
+		foreach ($datas as $data) {
+			echo '<tr>';
+			foreach($data as $key => $d) {
+				if (in_array($key, $fields))
+					echo '<td>'.$d.'</td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table>';
 	break;
 	
     case "viewassociations":
-	echo '<h3> Viewing Associations</h3>';
+		echo '<h3> Viewing Associations</h3>';
+		$Core->Database->setTable('association');
+		$fields = $Core->Database->getFieldsInfo();
+		$datas = $Core->Database->selectRows();
+		
+		
+		echo '<table><tr>';
+		foreach($fields as $field) {
+			echo '<th>'.ucfirst($field).'</th>';
+			$row .= '<td>'.$data[$field].'</td>';    
+		}
+		echo "</tr>";
+		foreach ($datas as $data) {
+			echo '<tr>';
+			foreach($data as $key => $d) {
+				if (in_array($key, $fields))
+					echo '<td>'.$d.'</td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table>';
 	break;
 	
     case "viewpartners":
-	echo '<h3> Viewing Partners</h3>';
+		echo '<h3> Viewing Partners</h3>';
+		$Core->Database->setTable('partner');
+		$fields = $Core->Database->getFieldsInfo();
+		$datas = $Core->Database->selectRows();
+		
+		
+		echo '<table><tr>';
+		foreach($fields as $field) {
+			echo '<th>'.ucfirst($field).'</th>';
+			$row .= '<td>'.$data[$field].'</td>';    
+		}
+		echo "</tr>";
+		foreach ($datas as $data) {
+			echo '<tr>';
+			foreach($data as $key => $d) {
+				if (in_array($key, $fields))
+					echo '<td>'.$d.'</td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table>';
 	break;
 	
     case "viewsuppliers":
-	echo '<h3> Viewing Suppliers</h3>';
+		echo '<h3> Viewing Suppliers</h3>';
+		$Core->Database->setTable('supplier');
+		$fields = $Core->Database->getFieldsInfo();
+		$datas = $Core->Database->selectRows();
+		
+		
+		echo '<table><tr>';
+		foreach($fields as $field) {
+			echo '<th>'.ucfirst($field).'</th>';
+			$row .= '<td>'.$data[$field].'</td>';    
+		}
+		echo "</tr>";
+		foreach ($datas as $data) {
+			echo '<tr>';
+			foreach($data as $key => $d) {
+				if (in_array($key, $fields))
+					echo '<td>'.$d.'</td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table>';
 	break;
 	
     case "viewcustomers":
-	echo '<h3> Viewing Customers</h3>';
+		echo '<h3> Viewing Customers</h3>';
+		$Core->Database->setTable('customer');
+		$fields = $Core->Database->getFieldsInfo();
+		$datas = $Core->Database->selectRows();
+		
+		
+		echo '<table><tr>';
+		foreach($fields as $field) {
+			echo '<th>'.ucfirst($field).'</th>';
+			$row .= '<td>'.$data[$field].'</td>';    
+		}
+		echo "</tr>";
+		foreach ($datas as $data) {
+			echo '<tr>';
+			foreach($data as $key => $d) {
+				if (in_array($key, $fields))
+					echo '<td>'.$d.'</td>';
+			}
+			echo '</tr>';
+		}
+		echo '</table>';
 	break;
 	///////////////////////ADD/////////////////////
 	case "adduser":
-	echo '<h3> Add User</h3>';
+		echo '<h3> Add User</h3>';
+		echo $Form->Build();
+		if (isset($_POST['submit'])) {
+			
+		  $ID = $Core->Database->insertRow($_POST);
+		  
+		  if ($ID > 0) {
+			echo $Core->Utilities->drawNotice("Data inserted successfully", "success");
+		  } else
+			echo $Core->Utilities->drawNotice("Data not inserted successfully", "error");
+		}
+
 	break;
 	
 	case "addclient":
