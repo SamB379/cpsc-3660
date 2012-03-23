@@ -163,6 +163,7 @@
 			</div>
         <div class="content">
             <div class="main">
+			<div align="center">
                 <?php
                   
 switch($p) 
@@ -170,6 +171,7 @@ switch($p)
 	///////////////////VIEW///////////////////////
 	case "viewusers":
 		echo '<h3> Viewing Users</h3>';
+		$Core->Database->setTable('users');
 		$fields = $Core->Database->getFieldsInfo();
 		$datas = $Core->Database->selectRows();
 		
@@ -241,7 +243,7 @@ switch($p)
 	
     case "viewcommrecords":
 		echo '<h3> Viewing Communication Records</h3>';
-		$Core->Database->setTable('communicationrecord');
+		$Core->Database->setTable('commrecord');
 		$fields = $Core->Database->getFieldsInfo();
 		$datas = $Core->Database->selectRows();
 		
@@ -471,6 +473,7 @@ switch($p)
                     //This is here to display any errors that may arise from the Database class.
                     echo $Core->displayDBErrors();
                 ?>
+				</div >
             </div>
         </div>
         <div id="footer">
