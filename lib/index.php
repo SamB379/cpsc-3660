@@ -443,8 +443,13 @@ switch($p)
 		$Form->openFieldset("Adding User");
         $Form->text("Username", "username", "");
 		$Form->text("Name", "name", "");
-		$Form->text("Password", "password", "");
-		$Form->ageSelector("Administrator level", "admin_level");
+		$Form->password("Password", "password", "");
+		
+		for($i=1; $i<11; $i++)
+			$levels[$i] = "Level ".$i;
+			
+		$Form->select("Administrator Level", "admin_level", $levels);
+		//$Form->ageSelector("Administrator level", "admin_level");
         $Form->closeFieldSet();
         $Form->submit("", "submit","Insert");
 		echo $Form->Build();
