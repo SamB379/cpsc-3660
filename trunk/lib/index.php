@@ -6,8 +6,9 @@
     require_once('core.class.php');
     require_once('error.class.php');
     require_once('database.class.php');
+require_once('form.class.php');
     require_once('utilities.class.php');
-    require_once('form.class.php');
+    
     require_once('site.class.php');
     
     error_reporting(E_ALL^E_NOTICE);
@@ -54,9 +55,34 @@
             <div class="main">
 			<div align="center">
                 <?php
-                  
+$actions = array("view", "add", "edit", "delete" );
+    $tables = array("users", "client", "supplier", "partner", "organization", "customer", "communication" );
+
+if (in_array($_GET['action'], $actions)) {
+	$action = $_GET['action'];
+	if (in_array($_GET['table'], $tables)) {
+		$table = $_GET['table'];
+		echo '<h3> '.ucfirst($action).' '.ucfirst($table).'</h3>';
+				$Core->Database->setTable($table);
+				$fields = $Core->Database->getFieldsInfo();
+				$datas = $Core->Database->selectRows();
+				
+				switch($action) {
+					case "view": echo $Core->Utilities->drawTable($fields, $datas); break;
+					case "add": echo $Core->Utilities->generateForm($table)->Build(); break;
+					
+				
+				}
+				echo '<h3><a href="?p='.$action.'menu">Back</a></h3>';
+				echo '<h3><a href="?p=viewmainmenu">Home</a></h3>';
+	}
+}
+
+              
 switch($p) 
 {
+	
+	
 	case "viewmainmenu":
 			echo '<table>
 			<tr>
@@ -223,21 +249,7 @@ switch($p)
 		$datas = $Core->Database->selectRows();
 		
 		
-		echo '<table><tr>';
-		foreach($fields as $field) {
-			echo '<th>'.ucfirst($field).'</th>';
-			$row .= '<td>'.$data[$field].'</td>';    
-		}
-		echo "</tr>";
-		foreach ($datas as $data) {
-			echo '<tr>';
-			foreach($data as $key => $d) {
-				if (in_array($key, $fields))
-					echo '<td>'.$d.'</td>';
-			}
-			echo '</tr>';
-		}
-		echo '</table>';
+		echo $Core->Utilities->drawTable($fields, $datas);
 		
 		echo '<h3><a href="?p=viewmenu">Back</a></h3>';
 		echo '<h3><a href="?p=viewmainmenu">Home</a></h3>';
@@ -251,21 +263,7 @@ switch($p)
 		$datas = $Core->Database->selectRows();
 		
 		
-		echo '<table><tr>';
-		foreach($fields as $field) {
-			echo '<th>'.ucfirst($field).'</th>';
-			$row .= '<td>'.$data[$field].'</td>';    
-		}
-		echo "</tr>";
-		foreach ($datas as $data) {
-			echo '<tr>';
-			foreach($data as $key => $d) {
-				if (in_array($key, $fields))
-					echo '<td>'.$d.'</td>';
-			}
-			echo '</tr>';
-		}
-		echo '</table>';
+		echo $Core->Utilities->drawTable($fields, $datas);
 		
 		echo '<h3><a href="?p=viewmenu">Back</a></h3>';
 		echo '<h3><a href="?p=viewmainmenu">Home</a></h3>';
@@ -279,21 +277,7 @@ switch($p)
 		$datas = $Core->Database->selectRows();
 		
 		
-		echo '<table><tr>';
-		foreach($fields as $field) {
-			echo '<th>'.ucfirst($field).'</th>';
-			$row .= '<td>'.$data[$field].'</td>';    
-		}
-		echo "</tr>";
-		foreach ($datas as $data) {
-			echo '<tr>';
-			foreach($data as $key => $d) {
-				if (in_array($key, $fields))
-					echo '<td>'.$d.'</td>';
-			}
-			echo '</tr>';
-		}
-		echo '</table>';
+		echo $Core->Utilities->drawTable($fields, $datas);
 		
 		echo '<h3><a href="?p=viewmenu">Back</a></h3>';
 		echo '<h3><a href="?p=viewmainmenu">Home</a></h3>';
@@ -306,21 +290,7 @@ switch($p)
 		$datas = $Core->Database->selectRows();
 		
 		
-		echo '<table><tr>';
-		foreach($fields as $field) {
-			echo '<th>'.ucfirst($field).'</th>';
-			$row .= '<td>'.$data[$field].'</td>';    
-		}
-		echo "</tr>";
-		foreach ($datas as $data) {
-			echo '<tr>';
-			foreach($data as $key => $d) {
-				if (in_array($key, $fields))
-					echo '<td>'.$d.'</td>';
-			}
-			echo '</tr>';
-		}
-		echo '</table>';
+		echo $Core->Utilities->drawTable($fields, $datas);
 		
 		echo '<h3><a href="?p=viewmenu">Back</a></h3>';
 		echo '<h3><a href="?p=viewmainmenu">Home</a></h3>';
@@ -333,21 +303,7 @@ switch($p)
 		$datas = $Core->Database->selectRows();
 		
 		
-		echo '<table><tr>';
-		foreach($fields as $field) {
-			echo '<th>'.ucfirst($field).'</th>';
-			$row .= '<td>'.$data[$field].'</td>';    
-		}
-		echo "</tr>";
-		foreach ($datas as $data) {
-			echo '<tr>';
-			foreach($data as $key => $d) {
-				if (in_array($key, $fields))
-					echo '<td>'.$d.'</td>';
-			}
-			echo '</tr>';
-		}
-		echo '</table>';
+		echo $Core->Utilities->drawTable($fields, $datas);
 		
 		echo '<h3><a href="?p=viewmenu">Back</a></h3>';
 		echo '<h3><a href="?p=viewmainmenu">Home</a></h3>';
@@ -360,21 +316,7 @@ switch($p)
 		$datas = $Core->Database->selectRows();
 		
 		
-		echo '<table><tr>';
-		foreach($fields as $field) {
-			echo '<th>'.ucfirst($field).'</th>';
-			$row .= '<td>'.$data[$field].'</td>';    
-		}
-		echo "</tr>";
-		foreach ($datas as $data) {
-			echo '<tr>';
-			foreach($data as $key => $d) {
-				if (in_array($key, $fields))
-					echo '<td>'.$d.'</td>';
-			}
-			echo '</tr>';
-		}
-		echo '</table>';
+		echo $Core->Utilities->drawTable($fields, $datas);
 		
 		echo '<h3><a href="?p=viewmenu">Back</a></h3>';
 		echo '<h3><a href="?p=viewmainmenu">Home</a></h3>';
@@ -387,21 +329,7 @@ switch($p)
 		$datas = $Core->Database->selectRows();
 		
 		
-		echo '<table><tr>';
-		foreach($fields as $field) {
-			echo '<th>'.ucfirst($field).'</th>';
-			$row .= '<td>'.$data[$field].'</td>';    
-		}
-		echo "</tr>";
-		foreach ($datas as $data) {
-			echo '<tr>';
-			foreach($data as $key => $d) {
-				if (in_array($key, $fields))
-					echo '<td>'.$d.'</td>';
-			}
-			echo '</tr>';
-		}
-		echo '</table>';
+		echo $Core->Utilities->drawTable($fields, $datas);
 		
 		echo '<h3><a href="?p=viewmenu">Back</a></h3>';
 		echo '<h3><a href="?p=viewmainmenu">Home</a></h3>';
@@ -414,21 +342,7 @@ switch($p)
 		$datas = $Core->Database->selectRows();
 		
 		
-		echo '<table><tr>';
-		foreach($fields as $field) {
-			echo '<th>'.ucfirst($field).'</th>';
-			$row .= '<td>'.$data[$field].'</td>';    
-		}
-		echo "</tr>";
-		foreach ($datas as $data) {
-			echo '<tr>';
-			foreach($data as $key => $d) {
-				if (in_array($key, $fields))
-					echo '<td>'.$d.'</td>';
-			}
-			echo '</tr>';
-		}
-		echo '</table>';
+		echo $Core->Utilities->drawTable($fields, $datas);
 		
 		echo '<h3><a href="?p=viewmenu">Back</a></h3>';
 		echo '<h3><a href="?p=viewmainmenu">Home</a></h3>';

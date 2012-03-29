@@ -96,6 +96,30 @@ class Database {
 		return false;
 	}
 	
+	public function getFieldTypes() {
+		$this->doChecks();
+		if ($result = $this->mysqli->query("SELECT * FROM ".$this->table)) {
+			$fields = $result->fetch_fields();
+			foreach($fields as $field) {
+				$info[] = $field->type;
+			}
+			return $info;
+		}
+		return false;
+	}
+	
+	public function getFieldFlags() {
+		$this->doChecks();
+		if ($result = $this->mysqli->query("SELECT * FROM ".$this->table)) {
+			$fields = $result->fetch_fields();
+			foreach($fields as $field) {
+				$info[] = $field->flags;
+			}
+			return $info;
+		}
+		return false;
+	}
+	
 	/**
 	 * Helper function to detect type of data for prepared statements.
 	 * @param $data
@@ -364,6 +388,7 @@ class Database {
 					$query = substr($query, 0, -6);
 				}
 			$query .= $order;
+			
 			//Send the prepared statment
 			if ($stmt=$this->mysqli->prepare($query)) {
 				
