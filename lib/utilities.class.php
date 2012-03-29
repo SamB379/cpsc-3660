@@ -48,10 +48,24 @@ class Utilities {
 		$fields = $this->super->Database->getFieldsInfo();
 		$types = $this->super->Database->getFieldTypes();
 		$flags = $this->super->Database->getFieldFlags();
+		var_dump($types);
+		if (isset($_POST['Submit'])) {
+			
+			$ID = $this->super->Database->insertRow($_POST);
+			
+			 if ($ID > 0) 
+				echo $this->drawNotice("Data inserted successfully", "success");
+			 else
+				echo $this->drawNotice("Data not inserted successfully", "error");
+					
+		}
+		
 		foreach($fields as $key=>$field ) {
-			if (! ($flags[$key] & 512)) {
+			if (! ($flags[$key] & 512)) { //Only display forms fields without the auto increment flag set
 			switch($types[$key]) {
-				case 3: case 253: $Form->text($field, $field, ""); break;
+				case 3: case 253: case 246: $Form->text($field, $field, ""); break;
+				case 252: $Form->textarea($field, $field, ""); break;
+				case 10: $Form->date($field, $field, "", array("class"=>"datepicker"));
 			}
 			}
 		}

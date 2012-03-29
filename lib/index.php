@@ -25,6 +25,10 @@ require_once('form.class.php');
     $Site->setTitle("Client Relation Management");
     $Site->addCSS("./css/easy.css");
     $Site->addCSS("./css/style.css");
+	$Site->addCSS("./css/jquery-ui-1.8.18.custom.css");
+	$Site->addJS("./js/jquery-1.7.1.min.js");
+	$Site->addJS("./js/jquery-ui-1.8.18.custom.min.js");
+	$Site->addJS("./js/site.js");
     
     
     $Form = new Form();
