@@ -33,13 +33,14 @@ require_once('form.class.php');
     
     $Form = new Form();
 
-
+echo(gmdate(DATE_ATOM,mktime(0,0,0,10,3,1975)) . "<br />");
 	echo $Site->startDraw();
 ?>
     <div id="container">
     <div id="header">
         <h1>Client Relational Management</h1>
 		</br></br>	
+		
 		
 				
 
@@ -358,7 +359,7 @@ switch($p)
 		
 		
 		$Core->Database->setTable('users');
-		$Form->openFieldset("Adding User");
+		$Form->openFieldset("Adding A User");
         $Form->text("Username", "username", "");
 		$Form->text("Name", "name", "");
 		$Form->password("Password", "password", "");
@@ -388,6 +389,58 @@ switch($p)
 	
 	case "addclient":
 	echo '<h3> Add Client</h3>';
+	
+	$Core->Database->setTable('client');
+	$Form->openFieldset("Adding A Client");
+	//name
+	$Form->text("Name", "name", "");
+	//sex
+	$levels["Male"] = "Male";
+	$levels["Female"] = "Female";
+	$Form->select("Sex", "sex", $levels);
+	//age
+	for($i=1; $i<99; $i++)
+		$ages[$i] = $i;
+	$Form->select("Age", "age", $ages);
+
+	//ord ID
+	$con = mysql_connect("localhost","exile_3660","3660pr0j3ct");
+	mysql_select_db("exile_3660", $con);
+	$result = mysql_query("SELECT ID FROM organization") or die(mysql_error());
+	mysql_close($con);
+	
+	$index = 1;
+	while($row = mysql_fetch_array($result))
+	{
+		$organizationIDs[$index] = $row['ID'];
+		$index++;
+	}	
+	$Form->select("Organization ID", "orgID", $organizationIDs);
+	
+	//added date
+	$today = date("d-m-y"); 
+	$Form->text("Added Date", "added_date", $today);
+	
+	
+	//summary
+	$Form->text("Summary", "summary", "");
+	
+		
+	
+	//$Form->ageSelector("Administrator level", "admin_level");
+	$Form->closeFieldSet();
+	$Form->submit("", "submit","Insert");
+	echo $Form->Build();
+	
+	if (isset($_POST['submit'])) {
+		
+	  $ID = $Core->Database->insertRow($_POST);
+	  
+	  if ($ID > 0) {
+		echo $Core->Utilities->drawNotice("Data inserted successfully", "success");
+	  } else
+		echo $Core->Utilities->drawNotice("Data not inserted successfully", "error");
+	}
 	
 	echo '<h3><a href="?p=addmenu">Back</a></h3>';
 	echo '<h3><a href="?p=viewmainmenu">Home</a></h3>';
