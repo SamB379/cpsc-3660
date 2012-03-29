@@ -35,7 +35,7 @@ class Site {
 	
 	public function startDraw() {
 		$oData .= '
-			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">\n
+			<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'.$this->nl().'
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">'.$this->nl();
 			$oData .= $this->buildHead();
 			$oData .= '<body>'.$this->nl();
