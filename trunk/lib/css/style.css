@@ -53,3 +53,5 @@ h1.notice, div.notice, div.footnotes {
 .error, .success, .notice {
     clear: both;
 }
+
+img.datepicker_icon { vertical-align: middle; margin-left: 10px; } 

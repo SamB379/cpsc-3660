@@ -12,24 +12,30 @@ class Form {
         $this->method = $method;
     }
 
-    public function text($label, $name, $value) {
-        $this->makeFieldRow($label, $name, $value, "text");        
+    public function text($label, $name, $value, $attributes = null) {
+        $this->makeFieldRow($label, $name, $value, "text", null, $attributes);        
     }
 	
-	public function select($label, $name, $values, $selected = null) {
-		$this->makeFieldRow($label, $name, $values, "select", $selected);
+	public function select($label, $name, $values, $selected = null, $attributes = null) {
+		$this->makeFieldRow($label, $name, $values, "select", $selected, $attributes);
 	}
 	
-	public function password($label, $name, $value) {
-		$this->makeFieldRow($label, $name, $value, "password");
+	public function password($label, $name, $value, $attributes = null) {
+		$this->makeFieldRow($label, $name, $value, "password", null, $attributes);
 	}
 	
-	public function checkbox($label, $name, $value) {
-		$this->makeFieldRow($label, $name, $value, "checkbox");
+	public function checkbox($label, $name, $value, $attributes = null) {
+		$this->makeFieldRow($label, $name, $value, "checkbox", null, $attributes);
 	}
-	public function radiobutton($label, $name, $value) {
-		$this->makeFieldRow($label, $name, $value, "radio");
+	public function radiobutton($label, $name, $value, $attributes = null) {
+		$this->makeFieldRow($label, $name, $value, "radio", null, $attributes);
 	}
+	public function textarea($label, $name, $value, $attributes = null) {
+		$this->makeFieldRow($label, $name, $value, "textarea", null, $attributes);
+	}
+	public function date($label, $name, $value, $attributes = null) {
+			$this->makeFieldRow($label, $name, $value, "text", null, $attributes, '<img src="./images/calendar.png" class="datepicker_icon" />');
+		}
 	
 	private function buildOptions($values, $selected = null) {
 		if (is_array($values)) {
@@ -56,30 +62,44 @@ class Form {
         
     }
     
-    private function makeFieldRow($label, $name, $value, $type, $selected = null) {
+    private function makeFieldRow($label, $name, $value, $type, $selected = null, $attributes = null, $extra = null) {
      $data .= '<div><label for="'.$name.'">'.$label.'</label>'; 
 	
 	if ($type == "select") {
 		if (is_array($value)) {
-			$data .= $this->makeSelectField($name, $value, $selected);
+			$data .= $this->makeSelectField($name, $value, $selected, $attributes);
 		}
+	} else if ($type == "textarea") {
+			$data .= $this->makeTextArea($name, $value, $attributes);
 	}
 	else {
-		$data .= $this->makeInputField($name, $value, $type);
+		$data .= $this->makeInputField($name, $value, $type, $attributes);
 		} 
-	
+	$data .= $extra;
 	$data .= '</div>';
 	$this->add($data);
 
   
     }
-    
-	private function makeInputField($name, $value, $type) {
-		return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'" />';
+    private function makeTextArea($name, $value, $attributes) {
+		return '<textarea name="'.$name.'" '.$this->buildAttributes($attributes).'>'.$value.'</textarea>';
+	}
+	private function makeInputField($name, $value, $type, $attributes) {
+		return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'" '.$this->buildAttributes($attributes).' />';
 	}
 	
-	private function makeSelectField($name, $values, $selected) {
-		return '<select name="'.$name.'">'.$this->buildOptions($values, $selected).'</select>';
+	private function makeSelectField($name, $values, $selected, $attributes) {
+		return '<select name="'.$name.'" '.$this->buildAttributes($attributes).'>'.$this->buildOptions($values, $selected).'</select>';
+	}
+	
+	private function buildAttributes($array) {
+		$data = "";
+		if (is_array($array)) {
+			foreach($array as $key=>$arr) {
+				$data .= $key.'="'.$arr.'"';
+			}
+		}
+		return $data;
 	}
 
 public function openFieldset($legend = null) {
