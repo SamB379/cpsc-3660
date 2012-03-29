@@ -40,7 +40,8 @@ class Form {
 	private function buildOptions($values, $selected = null) {
 		if (is_array($values)) {
 			
-			foreach ($values as $key=>$value) {
+			foreach ($values as $key=>$value) 
+			{
 				if (is_null($selected))
 					$options .=	$this->option($key, $value);
 				else {
