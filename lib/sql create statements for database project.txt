@@ -14,13 +14,14 @@ organization
 (ID) 
 on delete set null on update set null) auto_increment=1;
 
-//////////////////////////////////////////////////////////////////
+
 
 create table organization (ID int (11) not null auto_increment,
 summary text not null,
-name varchar(255)
+name varchar(255),
+primary key(ID)
 ) auto_increment=1;
-//////////////////////////////////////////////////////////////////
+
 
 create table users(
 ID int(11) not null auto_increment,
@@ -33,7 +34,7 @@ primary key(ID)
 auto_increment=1;
 
 
-//////////////////////////////////////////////////////////////////
+
 create table commrecord(
 ID int (11) not null auto_increment,
 userID int (11) not null,
@@ -49,7 +50,7 @@ auto_increment=1;
 
 
 
-//////////////////////////////////////////////////////////////////
+
 create table customer (
 ID int (11) not null auto_increment,
 total_sales decimal(10,2) not null,
@@ -59,7 +60,7 @@ primary key (ID)
 )
 auto_increment=1;
 
-//////////////////////////////////////////////////////////////////
+
 create table supplier(
 ID int (11) not null auto_increment,
 owing decimal(10,2) not null,
@@ -71,7 +72,7 @@ auto_increment=1;
 
 
 
-//////////////////////////////////////////////////////////////////
+
 create table partner(
 ID int (11) not null auto_increment,
 contract_start date not null,
@@ -81,7 +82,7 @@ primary key (ID)
 )
 auto_increment=1;
 
-//////////////////////////////////////////////////////////////////
+
 create table association(
 ID int (11) not null auto_increment,
 clientID int(11)not null,
@@ -94,4 +95,4 @@ foreign key (customerID) references customer (ID) on delete set null on update s
 foreign key (supplierID) references supplier (ID) on delete set null on update set null,
 foreign key (partnerID) references partner (ID) on delete set null on update set null)
 auto_increment=1;
-//////////////////////////////////////////////////////////////////
+

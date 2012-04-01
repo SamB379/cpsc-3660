@@ -6,6 +6,7 @@ class Form {
     private $method;
     private $items;
     private $fieldsetOpen;
+	
     
     public function Form($action = "", $method = "POST") {
         $this->action = $action;
@@ -37,33 +38,17 @@ class Form {
 			$this->makeFieldRow($label, $name, $value, "text", null, $attributes, '<img src="./images/calendar.png" class="datepicker_icon" />');
 		}
 	
-	private function buildOptions($values, $selected = null) {
-		if (is_array($values)) {
-			
-			foreach ($values as $key=>$value) 
-			{
-				if (is_null($selected))
-					$options .=	$this->option($key, $value);
-				else {
-					$options .= $this->option($key, $value, $selected);
-				}
-			}
-		}
-		
-		return $options;
-	}
-	
-	private function option($value, $label, $selected = null) {
-		return '<option value="'.$value.'" '.(!is_null($selected)?'selected="selected"':'').'>'.$label.'</option>';
-	}
-	
-    
     public function submit($label, $name, $value) {
         $this->makeFieldRow($label, $name, $value, "submit");
         
     }
+	
+	public function custom($label, &$Input) {
+		
+		$this->makeFieldRow($label, $Input->_get("name"), "", "custom", null, null, null, $Input);
+	}
     
-    private function makeFieldRow($label, $name, $value, $type, $selected = null, $attributes = null, $extra = null) {
+    private function makeFieldRow($label, $name, $value, $type, $selected = null, $attributes = null, $extra = null, &$Input = null) {
      $data .= '<div><label for="'.$name.'">'.$label.'</label>'; 
 	
 	if ($type == "select") {
@@ -72,6 +57,10 @@ class Form {
 		}
 	} else if ($type == "textarea") {
 			$data .= $this->makeTextArea($name, $value, $attributes);
+	} else if ($type == "custom") {
+		if (!is_null($Input)) {
+			$data .= $Input->build();
+		}
 	}
 	else {
 		$data .= $this->makeInputField($name, $value, $type, $attributes);
@@ -83,25 +72,29 @@ class Form {
   
     }
     private function makeTextArea($name, $value, $attributes) {
-		return '<textarea name="'.$name.'" '.$this->buildAttributes($attributes).'>'.$value.'</textarea>';
+		$Input = new Input("textarea", $name);
+		$Input->_set("value", $value);
+		$Input->_set("attributes", $attributes);
+		return $Input->build();	
+		//return '<textarea name="'.$name.'" '.$this->buildAttributes($attributes).'>'.$value.'</textarea>';
 	}
 	private function makeInputField($name, $value, $type, $attributes) {
-		return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'" '.$this->buildAttributes($attributes).' />';
+				$Input = new Input($type, $name);
+		$Input->_set("value", $value);
+		$Input->_set("attributes", $attributes);
+		return $Input->build();	
+		//return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'" '.$this->buildAttributes($attributes).' />';
 	}
 	
 	private function makeSelectField($name, $values, $selected, $attributes) {
-		return '<select name="'.$name.'" '.$this->buildAttributes($attributes).'>'.$this->buildOptions($values, $selected).'</select>';
+		$Input = new Input("select", $name);
+		$Input->_set("options", $values);
+		$Input->_set("attributes", $attributes);
+		return $Input->build();		
+		//return '<select name="'.$name.'" '.$this->buildAttributes($attributes).'>'.$this->buildOptions($values, $selected).'</select>';
 	}
 	
-	private function buildAttributes($array) {
-		$data = "";
-		if (is_array($array)) {
-			foreach($array as $key=>$arr) {
-				$data .= $key.'="'.$arr.'"';
-			}
-		}
-		return $data;
-	}
+
 
 public function openFieldset($legend = null) {
 

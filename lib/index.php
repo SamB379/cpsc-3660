@@ -6,11 +6,12 @@
     require_once('core.class.php');
     require_once('error.class.php');
     require_once('database.class.php');
+	   require_once('input.class.php');
 require_once('form.class.php');
     require_once('utilities.class.php');
     
     require_once('site.class.php');
-    
+ 
     error_reporting(E_ALL^E_NOTICE);
 
     $Core = new Core();
@@ -33,7 +34,6 @@ require_once('form.class.php');
     
     $Form = new Form();
 
-echo(gmdate(DATE_ATOM,mktime(0,0,0,10,3,1975)) . "<br />");
 	echo $Site->startDraw();
 ?>
     <div id="container">
@@ -74,7 +74,16 @@ if (in_array($_GET['action'], $actions)) {
 				
 				switch($action) {
 					case "view": echo $Core->Utilities->drawTable($fields, $datas); break;
-					case "add": echo $Core->Utilities->generateForm($table)->Build(); break;
+					case "add": 
+						
+						$Input = new Input("select", "admin_level");
+						for($i = 1; $i <= 10; $i++)
+							$Input->addOption("Level ".$i, $i);
+						
+						
+						echo $Core->Utilities->generateForm($table, array($Input))->Build();
+						
+					 break;
 					
 				
 				}

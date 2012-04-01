@@ -42,13 +42,13 @@ class Utilities {
 	return $oData;
 	}
 	
-	public function generateForm($table) {
+	public function generateForm($table, $custom_fields = null) {
 		$Form = new Form();
 		$this->super->Database->setTable($table);
 		$fields = $this->super->Database->getFieldsInfo();
 		$types = $this->super->Database->getFieldTypes();
 		$flags = $this->super->Database->getFieldFlags();
-		var_dump($types);
+		
 		if (isset($_POST['Submit'])) {
 			
 			$ID = $this->super->Database->insertRow($_POST);
@@ -61,11 +61,30 @@ class Utilities {
 		}
 		
 		foreach($fields as $key=>$field ) {
+			$custom_flag = false;
 			if (! ($flags[$key] & 512)) { //Only display forms fields without the auto increment flag set
+			
+			if (is_array($custom_fields)) {
+				foreach($custom_fields as $Input) {
+					
+					if ($Input->_get("name") == $field) {
+						$Form->custom($field, $Input);
+						$custom_flag = true;
+					}
+					
+					
+				}
+				
+				
+			} 
+			
+			if (!$custom_flag) {
 			switch($types[$key]) {
 				case 3: case 253: case 246: $Form->text($field, $field, ""); break;
 				case 252: $Form->textarea($field, $field, ""); break;
-				case 10: $Form->date($field, $field, "", array("class"=>"datepicker"));
+				case 10: $Form->date($field, $field, date("Y-m-d"), array("class"=>"datepicker"));
+			
+			}
 			}
 			}
 		}
