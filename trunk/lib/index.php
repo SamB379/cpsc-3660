@@ -62,8 +62,8 @@ echo $Site -> startDraw();
 			</li>
 				<li>Communication Records
 				<ul>
-					<li><a href="?action=add&table=commrecords">Add</a></li>
-				<li><a href="?action=view&table=commrecords">View</a></li>
+					<li><a href="?action=add&table=commrecord">Add</a></li>
+				<li><a href="?action=view&table=commrecord">View</a></li>
 				
 				</ul>
 				
@@ -101,7 +101,7 @@ echo $Site -> startDraw();
 		
 			<?php
 			$actions = array("view", "add", "edit", "delete");
-			$tables = array("users", "client", "supplier", "partner", "organization", "customer", "commrecord");
+			$tables = array("users", "client", "supplier", "partner", "organization", "customer", "commrecord", "client_association");
 
 			if (in_array($_GET['action'], $actions)) {
 				$action = $_GET['action'];
@@ -118,6 +118,8 @@ echo $Site -> startDraw();
 							break;
 						case "add" :
 						case "edit" :
+						
+						//Input override section
 							$Input[] = new Input("select", "admin_level");
 							for ($i = 1; $i <= 10; $i++)
 								end($Input) -> addOption("Level " . $i, $i);
@@ -125,23 +127,53 @@ echo $Site -> startDraw();
 							$Input[] = new Input("select", "orgID");
 							$Core -> Database -> setTable("organization");
 							$orgIds = $Core -> Database -> selectRows();
+							if (is_array($orgIds)) {
 							foreach ($orgIds as $org)
 								end($Input) -> addOption($org['name'], $org['ID']);
+							}
 							$Input[] = new Input("select", "age");
 							for ($i = 18; $i < 100; $i++)
 								end($Input) -> addOption($i, $i);
 							$Input[] = new Input("select", "userID");
 							$Core -> Database -> setTable("users");
 							$users = $Core -> Database -> selectRows();
+							if (is_array($users)) {
 							foreach ($users as $user)
 								end($Input) -> addOption($user['name'], $user['ID']);
-
+							}
 							$Input[] = new Input("select", "clientID");
 							$Core -> Database -> setTable("client");
 							$clients = $Core -> Database -> selectRows();
+							if(is_array($users)) {
 							foreach ($clients as $client)
 								end($Input) -> addOption($client['name'], $client['ID']);
-
+							}
+							
+							$Input[] = new Input("select", "customerID");
+							$Core->Database->setTable("customer");
+							$customers = $Core->Database->selectRows();
+							if (is_array($customers)){
+								foreach($customers as $customer)
+								end($Input)->addOption($customer['name']);
+							}
+							
+							$Input[] = new Input("select", "supplyID");
+							$Core->Database->setTable("supplier");
+							$customers = $Core->Database->selectRows();
+							if (is_array($customers)){
+								foreach($customers as $customer)
+								end($Input)->addOption($customer['name']);
+							}
+							
+							$Input[] = new Input("select", "partnerID");
+												$Core->Database->setTable("partner");
+												$customers = $Core->Database->selectRows();
+												if (is_array($customers)){
+													foreach($customers as $customer)
+													end($Input)->addOption($customer['name']);
+												}
+							
+							
 							echo $Core -> Utilities -> generateForm($table, $Input, (isset($_GET['ID']) && $_GET['action'] == "edit" ? $_GET['ID'] : null)) -> Build();
 
 							break;

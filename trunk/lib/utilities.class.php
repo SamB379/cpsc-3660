@@ -85,6 +85,7 @@ class Utilities {
 				foreach($custom_fields as $Input) {
 					
 					if ($Input->_get("name") == $field) {
+						$Input->_set("value", $selection[$field]);
 						$Form->custom($field, $Input);
 						$custom_flag = true;
 					}
