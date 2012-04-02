@@ -26,14 +26,21 @@ class Utilities {
 			foreach($fields as $field) {
 				$oData .= '<th>'.ucfirst($field).'</th>';
 			}
+			$oData .= '<th></th>';
+			$oData .= '<th></th>';
 			$oData .= "</tr>";
 			if (is_array($rows)) {
 			foreach ($rows as $data) {
 				$oData .= '<tr>';
 				foreach($data as $key => $d) {
-					if (in_array($key, $fields))
+					if (in_array($key, $fields)) {
+						if (strtolower($key) == "id")
+							$ID = $d;	
 						$oData .= '<td>'.$d.'</td>';
+					}
 				}
+				$oData .= '<td><a href="?action=edit&table='.$_GET['table'].'&ID='.$ID.'">Edit</a></td>';
+				$oData .= '<td><a href="?action=delete&table='.$_GET['table'].'&ID='.$ID.'">Delete</a></td>';
 				$oData .= '</tr>';
 			}
 			}
@@ -42,23 +49,33 @@ class Utilities {
 	return $oData;
 	}
 	
-	public function generateForm($table, $custom_fields = null) {
+	public function generateForm($table, $custom_fields = null, $selectID= null) {
 		$Form = new Form();
 		$this->super->Database->setTable($table);
 		$fields = $this->super->Database->getFieldsInfo();
 		$types = $this->super->Database->getFieldTypes();
 		$flags = $this->super->Database->getFieldFlags();
 		
+		if (!is_null($selectID))
+			$selection = $this->super->Database->selectRow($selectID);
+		
 		if (isset($_POST['Submit'])) {
-			
+			if (!is_null($selectID))
+			$update = $this->super->Database->updateRow($selectID, $_POST);
+			else
 			$ID = $this->super->Database->insertRow($_POST);
 			
-			 if ($ID > 0) 
-				echo $this->drawNotice("Data inserted successfully", "success");
-			 else
-				echo $this->drawNotice("Data not inserted successfully", "error");
+			 if ($ID > 0 || $update) 
+				echo $this->drawNotice("Data ".(!is_null($selectID)?"updated":"inserted")." successfully", "success");
+			 else {
+				echo $this->drawNotice("Data not ".(!is_null($selectID)?"updated":"inserted")." successfully", "error");
+			 	echo $this->super->DisplayDBErrors();
+			 }
 					
 		}
+			
+			if (!is_null($selectID))
+			$selection = $this->super->Database->selectRow($selectID);
 		
 		foreach($fields as $key=>$field ) {
 			$custom_flag = false;
@@ -80,9 +97,9 @@ class Utilities {
 			
 			if (!$custom_flag) {
 			switch($types[$key]) {
-				case 3: case 253: case 246: $Form->text($field, $field, ""); break;
-				case 252: $Form->textarea($field, $field, ""); break;
-				case 10: $Form->date($field, $field, date("Y-m-d"), array("class"=>"datepicker"));
+				case 3: case 253: case 246: $Form->text($field, $field, $selection[$field]); break;
+				case 252: $Form->textarea($field, $field, $selection[$field]); break;
+				case 10: $Form->date($field, $field, (!is_null($selectID)?$selection[$field]:date("Y-m-d")), array("class"=>"datepicker"));
 			
 			}
 			}

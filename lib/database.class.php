@@ -218,7 +218,7 @@ class Database {
 		
 		if (is_array($fields)) {
 			
-			$query = "UPDATE $table SET ";
+			$query = "UPDATE ".$this->table." SET ";
 			$bind_str = "";
 			$bind_values = array();
 			
