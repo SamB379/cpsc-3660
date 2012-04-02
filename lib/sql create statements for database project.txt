@@ -53,6 +53,7 @@ auto_increment=1;
 
 create table customer (
 ID int (11) not null auto_increment,
+name varchar(255) not null,
 total_sales decimal(10,2) not null,
 amount_owing decimal(10,2) not null,
 last_transaction_date date not null,
@@ -63,6 +64,7 @@ auto_increment=1;
 
 create table supplier(
 ID int (11) not null auto_increment,
+name varchar(255) not null,
 owing decimal(10,2) not null,
 amount_purchased decimal(10,2) not null,
 last_transaction_date date not null,
@@ -75,6 +77,7 @@ auto_increment=1;
 
 create table partner(
 ID int (11) not null auto_increment,
+name varchar(255) not null,
 contract_start date not null,
 contract_end date not null,
 venture_info text not null,
