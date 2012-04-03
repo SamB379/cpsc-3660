@@ -55,3 +55,28 @@ h1.notice, div.notice, div.footnotes {
 }
 
 img.datepicker_icon { vertical-align: middle; margin-left: 10px; } 
+
+div.form_row { 
+	padding: 10px;	
+	border-bottom: 1px solid #eeeeee;
+}
+div.form_row label { 
+	float: left;
+	width: 150px;
+	text-transform: capitalize;
+	
+}
+div.form_row input {
+	float: left;	
+}
+
+th.view_heading { text-transform: capitalize; }
+
+.main { width: 100%; padding: 5px; }
+table { display: table; }
+#nav { background-color: #eeeeee; }
+#nav li.top_level { margin-left: 10px; }
+#nav li ul { border: 1px solid #eeeeee; border-top: none; }
+#nav li ul li { border-bottom: 1px solid #eeeeee; width: 100%; padding-left: 5px; }
+#nav li ul li:hover { background-color:#f9f9f9; }
+h1 { margin-left: 10px; }
