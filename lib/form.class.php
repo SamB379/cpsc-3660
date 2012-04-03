@@ -49,7 +49,7 @@ class Form {
 	}
     
     private function makeFieldRow($label, $name, $value, $type, $selected = null, $attributes = null, $extra = null, &$Input = null) {
-     $data .= '<div><label for="'.$name.'">'.$label.'</label>'; 
+     $data .= '<div class="form_row"><label for="'.$name.'">'.$label.'</label>'; 
 	
 	if ($type == "select") {
 		if (is_array($value)) {

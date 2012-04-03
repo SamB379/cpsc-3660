@@ -37,22 +37,22 @@ $Form = new Form();
 echo $Site -> startDraw();
 ?>
 <div id="container">
-	<div id="header">
+	<div id="header" class="inner">
 		<h1>Client Relational Management</h1>
-		<ul id="nav">
-			<li>Client
+		<ul id="nav" class="inner">
+			<li class="top_level">Client
 				<ul>
 				<li><a href="?action=add&table=client">Add</a></li>
 				<li><a href="?action=view&table=client">View</a></li>
 				</ul></li>
-			<li>Customer
+			<li class="top_level">Customer
 				<ul>
 					<li><a href="?action=add&table=customer">Add</a></li>
 				<li><a href="?action=view&table=customer">View</a></li>
 				
 				</ul>
 				</li>
-			<li>User
+			<li class="top_level">User
 				<ul>
 					<li><a href="?action=add&table=users">Add</a></li>
 				<li><a href="?action=view&table=users">View</a></li>
@@ -60,7 +60,7 @@ echo $Site -> startDraw();
 				</ul>
 				
 			</li>
-				<li>Communication Records
+				<li class="top_level">Communication Records
 				<ul>
 					<li><a href="?action=add&table=commrecord">Add</a></li>
 				<li><a href="?action=view&table=commrecord">View</a></li>
@@ -69,7 +69,7 @@ echo $Site -> startDraw();
 				
 			</li>
 			
-				<li>Organization
+				<li class="top_level">Organization
 				<ul>
 					<li><a href="?action=add&table=organization">Add</a></li>
 				<li><a href="?action=view&table=organization">View</a></li>
@@ -77,7 +77,7 @@ echo $Site -> startDraw();
 				</ul>
 				
 			</li>
-				<li>Partner
+				<li class="top_level">Partner
 				<ul>
 					<li><a href="?action=add&table=partner">Add</a></li>
 				<li><a href="?action=view&table=partner">View</a></li>
@@ -85,7 +85,7 @@ echo $Site -> startDraw();
 				</ul>
 				
 			</li>
-				<li>Supplier
+				<li class="top_level">Supplier
 				<ul>
 					<li><a href="?action=add&table=supplier">Add</a></li>
 				<li><a href="?action=view&table=supplier">View</a></li>
@@ -93,6 +93,13 @@ echo $Site -> startDraw();
 				</ul>
 				
 			</li>
+			<li class="top_level">Client Association 
+					<ul>
+					<li><a href="?action=add&table=client_association">Add</a></li>
+				<li><a href="?action=view&table=client_association">View</a></li>
+					
+				</ul>
+				</li>
 			</ul>
 	</div>
 
@@ -107,7 +114,7 @@ echo $Site -> startDraw();
 				$action = $_GET['action'];
 				if (in_array($_GET['table'], $tables)) {
 					$table = $_GET['table'];
-					echo '<h3> ' . ucfirst($action) . ' ' . ucfirst($table) . '</h3>';
+					echo '<h3> ' . ucfirst($action) . ' ' . ucfirst($Core->Utilities->rmUnderscore($table)) . '</h3>';
 					$Core -> Database -> setTable($table);
 					$fields = $Core -> Database -> getFieldsInfo();
 					$datas = $Core -> Database -> selectRows();

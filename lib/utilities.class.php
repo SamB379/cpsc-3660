@@ -15,6 +15,12 @@ class Utilities {
         return '<div class="'.$type.'">'.$msg.'</div>';
     }
 
+	public function rmUnderscore($str) {
+		
+		return str_ireplace('_', ' ', $str);
+		
+	}
+
 	/**
 	 Simple Function to draw a table. 
 	@param $fields, are the headings
@@ -24,7 +30,7 @@ class Utilities {
 		
 		$oData .='<table><tr>';
 			foreach($fields as $field) {
-				$oData .= '<th>'.ucfirst($field).'</th>';
+				$oData .= '<th class="view_heading">'.$this->rmUnderscore($field).'</th>';
 			}
 			$oData .= '<th></th>';
 			$oData .= '<th></th>';
@@ -86,7 +92,7 @@ class Utilities {
 					
 					if ($Input->_get("name") == $field) {
 						$Input->_set("value", $selection[$field]);
-						$Form->custom($field, $Input);
+						$Form->custom($this->rmUnderscore($field), $Input);
 						$custom_flag = true;
 					}
 					
@@ -98,9 +104,9 @@ class Utilities {
 			
 			if (!$custom_flag) {
 			switch($types[$key]) {
-				case 3: case 253: case 246: $Form->text($field, $field, $selection[$field]); break;
-				case 252: $Form->textarea($field, $field, $selection[$field]); break;
-				case 10: $Form->date($field, $field, (!is_null($selectID)?$selection[$field]:date("Y-m-d")), array("class"=>"datepicker"));
+				case 3: case 253: case 246: $Form->text($this->rmUnderscore($field), $field, $selection[$field]); break;
+				case 252: $Form->textarea($this->rmUnderscore($field), $field, $selection[$field]); break;
+				case 10: $Form->date($this->rmUnderscore($field), $field, (!is_null($selectID)?$selection[$field]:date("Y-m-d")), array("class"=>"datepicker"));
 			
 			}
 			}
