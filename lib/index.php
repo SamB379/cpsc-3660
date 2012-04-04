@@ -35,72 +35,27 @@ $Site -> addJS("./js/site.js");
 $Form = new Form();
 
 echo $Site -> startDraw();
+
+$tables = array("users", "client", "supplier", "partner", "organization", "customer", "commrecord", "association");
+
 ?>
 <div id="container">
 	<div id="header" class="inner">
 		<h1>Client Relational Management</h1>
 		<ul id="nav" class="inner">
-			<li class="top_level">Client
+		<?
+		
+			//Lets build the nav dynamically from the $tables variable
+			foreach($tables as $table) {
+				echo '<li class="top_level">'.ucfirst($table).'
 				<ul>
-				<li><a href="?action=add&table=client">Add</a></li>
-				<li><a href="?action=view&table=client">View</a></li>
-				</ul></li>
-			<li class="top_level">Customer
-				<ul>
-					<li><a href="?action=add&table=customer">Add</a></li>
-				<li><a href="?action=view&table=customer">View</a></li>
-				
-				</ul>
-				</li>
-			<li class="top_level">User
-				<ul>
-					<li><a href="?action=add&table=users">Add</a></li>
-				<li><a href="?action=view&table=users">View</a></li>
-				
-				</ul>
-				
-			</li>
-				<li class="top_level">Communication Records
-				<ul>
-					<li><a href="?action=add&table=commrecord">Add</a></li>
-				<li><a href="?action=view&table=commrecord">View</a></li>
-				
-				</ul>
-				
-			</li>
-			
-				<li class="top_level">Organization
-				<ul>
-					<li><a href="?action=add&table=organization">Add</a></li>
-				<li><a href="?action=view&table=organization">View</a></li>
-					
-				</ul>
-				
-			</li>
-				<li class="top_level">Partner
-				<ul>
-					<li><a href="?action=add&table=partner">Add</a></li>
-				<li><a href="?action=view&table=partner">View</a></li>
-					
-				</ul>
-				
-			</li>
-				<li class="top_level">Supplier
-				<ul>
-					<li><a href="?action=add&table=supplier">Add</a></li>
-				<li><a href="?action=view&table=supplier">View</a></li>
-					
-				</ul>
-				
-			</li>
-			<li class="top_level">Client Association 
-					<ul>
-					<li><a href="?action=add&table=client_association">Add</a></li>
-				<li><a href="?action=view&table=client_association">View</a></li>
-					
-				</ul>
-				</li>
-			</ul>
+				<a href="?action=add&table='.$table.'"><li>Add</li></a>
+				<a href="?action=view&table='.$table.'"><li>View</li></a>
+				</ul></li>';
+			}
+		?>
+		</ul>
+		
 	</div>
 
 <div class="content">
@@ -108,13 +63,13 @@ echo $Site -> startDraw();
 		
 			<?php
 			$actions = array("view", "add", "edit", "delete");
-			$tables = array("users", "client", "supplier", "partner", "organization", "customer", "commrecord", "client_association");
+			
 
 			if (in_array($_GET['action'], $actions)) {
 				$action = $_GET['action'];
 				if (in_array($_GET['table'], $tables)) {
 					$table = $_GET['table'];
-					echo '<h3> ' . ucfirst($action) . ' ' . ucfirst($Core->Utilities->rmUnderscore($table)) . '</h3>';
+					echo '<h3 class="title"> ' . ucfirst($action) . ' ' . ucfirst($Core->Utilities->rmUnderscore($table)) . '</h3>';
 					$Core -> Database -> setTable($table);
 					$fields = $Core -> Database -> getFieldsInfo();
 					$datas = $Core -> Database -> selectRows();
@@ -134,6 +89,7 @@ echo $Site -> startDraw();
 							$Input[] = new Input("select", "orgID");
 							$Core -> Database -> setTable("organization");
 							$orgIds = $Core -> Database -> selectRows();
+							end($Input) -> addOption('--SELECT--', 0);
 							if (is_array($orgIds)) {
 							foreach ($orgIds as $org)
 								end($Input) -> addOption($org['name'], $org['ID']);
@@ -144,6 +100,7 @@ echo $Site -> startDraw();
 							$Input[] = new Input("select", "userID");
 							$Core -> Database -> setTable("users");
 							$users = $Core -> Database -> selectRows();
+							end($Input) -> addOption('--SELECT--', 0);
 							if (is_array($users)) {
 							foreach ($users as $user)
 								end($Input) -> addOption($user['name'], $user['ID']);
@@ -151,7 +108,8 @@ echo $Site -> startDraw();
 							$Input[] = new Input("select", "clientID");
 							$Core -> Database -> setTable("client");
 							$clients = $Core -> Database -> selectRows();
-							if(is_array($users)) {
+							end($Input) -> addOption('--SELECT--', 0);
+							if(is_array($clients)) {
 							foreach ($clients as $client)
 								end($Input) -> addOption($client['name'], $client['ID']);
 							}
@@ -159,27 +117,39 @@ echo $Site -> startDraw();
 							$Input[] = new Input("select", "customerID");
 							$Core->Database->setTable("customer");
 							$customers = $Core->Database->selectRows();
+							end($Input) -> addOption('--SELECT--', 0);
 							if (is_array($customers)){
 								foreach($customers as $customer)
-								end($Input)->addOption($customer['name']);
+								end($Input)->addOption($customer['name'], $customer['ID']);
 							}
 							
-							$Input[] = new Input("select", "supplyID");
+							$Input[] = new Input("select", "supplierID");
 							$Core->Database->setTable("supplier");
 							$customers = $Core->Database->selectRows();
+							end($Input) -> addOption('--SELECT--', 0);
 							if (is_array($customers)){
 								foreach($customers as $customer)
-								end($Input)->addOption($customer['name']);
+								end($Input)->addOption($customer['name'], $customer['ID']);
 							}
 							
 							$Input[] = new Input("select", "partnerID");
 												$Core->Database->setTable("partner");
 												$customers = $Core->Database->selectRows();
+												end($Input) -> addOption('--SELECT--', 0);
 												if (is_array($customers)){
 													foreach($customers as $customer)
-													end($Input)->addOption($customer['name']);
+													end($Input)->addOption($customer['name'], $customer['ID']);
 												}
+							$Input[] = new Input("select", "sex");
+							end($Input) -> addOption('--SELECT--', 0);
+							end($Input)->addOption("Male", "male");
+							end($Input)->addOption("Female", "female");
 							
+							$Input[] = new Input("select", "medium");
+							$mediums = array('phone_call','text_message','email','in_person','voice_mail','postal_letter','video_conference','instant_messanger');
+							end($Input) -> addOption('--SELECT--', 0);
+							foreach($mediums as $medium)
+								end($Input)->addOption($Core->Utilities->rmUnderscore($medium), $medium);
 							
 							echo $Core -> Utilities -> generateForm($table, $Input, (isset($_GET['ID']) && $_GET['action'] == "edit" ? $_GET['ID'] : null)) -> Build();
 

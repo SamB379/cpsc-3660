@@ -35,7 +35,7 @@ class Form {
 		$this->makeFieldRow($label, $name, $value, "textarea", null, $attributes);
 	}
 	public function date($label, $name, $value, $attributes = null) {
-			$this->makeFieldRow($label, $name, $value, "text", null, $attributes, '<img src="./images/calendar.png" class="datepicker_icon" />');
+			$this->makeFieldRow($label, $name, $value, "text", null, $attributes, '<img src="./images/calendar.png" class="icon" />');
 		}
 	
     public function submit($label, $name, $value) {
@@ -49,7 +49,7 @@ class Form {
 	}
     
     private function makeFieldRow($label, $name, $value, $type, $selected = null, $attributes = null, $extra = null, &$Input = null) {
-     $data .= '<div class="form_row"><label for="'.$name.'">'.$label.'</label>'; 
+     $data .= '<div class="form_row">'.$extra.'<label for="'.$name.'">'.$label.'</label>'; 
 	
 	if ($type == "select") {
 		if (is_array($value)) {
@@ -65,7 +65,7 @@ class Form {
 	else {
 		$data .= $this->makeInputField($name, $value, $type, $attributes);
 		} 
-	$data .= $extra;
+	
 	$data .= '</div>';
 	$this->add($data);
 

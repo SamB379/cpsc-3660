@@ -104,7 +104,7 @@ class Utilities {
 			
 			if (!$custom_flag) {
 			switch($types[$key]) {
-				case 3: case 253: case 246: $Form->text($this->rmUnderscore($field), $field, $selection[$field]); break;
+				case 3: case 253: case 246: case 254: $Form->text($this->rmUnderscore($field), $field, $selection[$field]); break;
 				case 252: $Form->textarea($this->rmUnderscore($field), $field, $selection[$field]); break;
 				case 10: $Form->date($this->rmUnderscore($field), $field, (!is_null($selectID)?$selection[$field]:date("Y-m-d")), array("class"=>"datepicker"));
 			
