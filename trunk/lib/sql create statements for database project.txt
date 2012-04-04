@@ -1,3 +1,10 @@
+create table organization (ID int (11) not null auto_increment,
+summary text not null,
+name varchar(255),
+primary key(ID)
+) auto_increment=1;
+
+
 create table client (
 ID int (11) not null auto_increment, name varchar(255) not null, 
 sex enum('male', 'female') not null,
@@ -16,11 +23,6 @@ on delete set null on update set null) auto_increment=1;
 
 
 
-create table organization (ID int (11) not null auto_increment,
-summary text not null,
-name varchar(255),
-primary key(ID)
-) auto_increment=1;
 
 
 create table users(
@@ -94,8 +96,8 @@ customerID int(11) default null,
 supplierID int(11) default null,
 partnerID int(11) default null,
 primary key (ID),
-foreign key (customerID) references customer (ID) on delete set null on update set null,
-foreign key (supplierID) references supplier (ID) on delete set null on update set null,
-foreign key (partnerID) references partner (ID) on delete set null on update set null)
+foreign key (customerID) references customer (ID) on delete restrict on update restrict,
+foreign key (supplierID) references supplier (ID) on delete restrict on update restrict,
+foreign key (partnerID) references partner (ID) on delete restrict on update restrict)
 auto_increment=1;
 
