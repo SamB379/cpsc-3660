@@ -92,6 +92,7 @@ class Utilities {
 					
 					if ($Input->_get("name") == $field) {
 						$Input->_set("value", $selection[$field]);
+						$Input->_set("selected", $selection[$field]);
 						$Form->custom($this->rmUnderscore($field), $Input);
 						$custom_flag = true;
 					}
