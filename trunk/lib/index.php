@@ -46,13 +46,61 @@ $tables = array("users", "client", "supplier", "partner", "organization", "custo
 		<?
 		
 			//Lets build the nav dynamically from the $tables variable
-			foreach($tables as $table) {
-				echo '<li class="top_level">'.ucfirst($table).'
+			//lets not, casue the names look .fucking. stupid
+			//foreach($tables as $table) {
+			//	echo '<li class="top_level">'.ucfirst($table).'
+			//	<ul>
+			//	<a href="?action=add&table='.$table.'"><li>Add</li></a>
+			//	<a href="?action=view&table='.$table.'"><li>View</li></a>
+			//	</ul></li>';
+			//}
+			
+			echo '<li class="top_level">'.Users.'
 				<ul>
-				<a href="?action=add&table='.$table.'"><li>Add</li></a>
-				<a href="?action=view&table='.$table.'"><li>View</li></a>
+				<a href="?action=add&table='.users.'"><li>Add</li></a>
+				<a href="?action=view&table='.users.'"><li>View</li></a>
 				</ul></li>';
-			}
+			echo '<li class="top_level">'.Clients.'
+				<ul>
+				<a href="?action=add&table='.client.'"><li>Add</li></a>
+				<a href="?action=view&table='.client.'"><li>View</li></a>
+				</ul></li>';
+			echo '<li class="top_level">'.Organizations.'
+				<ul>
+				<a href="?action=add&table='.organization.'"><li>Add</li></a>
+				<a href="?action=view&table='.organization.'"><li>View</li></a>
+				</ul></li>';
+				$text = "Communication Records";
+			echo '<li class="top_level">'.$text.'
+				<ul>
+				<a href="?action=add&table='.commrecord.'"><li>Add</li></a>
+				<a href="?action=view&table='.commrecord.'"><li>View</li></a>
+				</ul></li>';
+				$text = "Customer Data";
+			echo '<li class="top_level">'.$text.'
+				<ul>
+				<a href="?action=add&table='.customer.'"><li>Add</li></a>
+				<a href="?action=view&table='.customer.'"><li>View</li></a>
+				</ul></li>';
+				$text = "Supplier Data";
+			echo '<li class="top_level">'.$text.'
+				<ul>
+				<a href="?action=add&table='.supplier.'"><li>Add</li></a>
+				<a href="?action=view&table='.supplier.'"><li>View</li></a>
+				</ul></li>';
+				$text = "Partner Data";
+			echo '<li class="top_level">'.$text.'
+				<ul>
+				<a href="?action=add&table='.partner.'"><li>Add</li></a>
+				<a href="?action=view&table='.partner.'"><li>View</li></a>
+				</ul></li>';
+				$text = "Client Associations";
+			echo '<li class="top_level">'.$text.'
+				<ul>
+				<a href="?action=add&table='.association.'"><li>Add</li></a>
+				<a href="?action=view&table='.association.'"><li>View</li></a>
+				</ul></li>';
+			
 		?>
 		</ul>
 		
