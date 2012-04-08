@@ -12,7 +12,7 @@ require_once ('utilities.class.php');
 
 require_once ('site.class.php');
 
-error_reporting(E_ALL ^ E_NOTICE);
+error_reporting(0);
 
 $Core = new Core();
 $Site = new Site();
