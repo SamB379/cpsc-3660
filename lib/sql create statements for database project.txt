@@ -1,6 +1,6 @@
 create table organization (ID int (11) not null auto_increment,
-summary text not null,
 name varchar(255),
+summary text not null,
 primary key(ID)
 ) auto_increment=1;
 
@@ -42,7 +42,7 @@ ID int (11) not null auto_increment,
 userID int (11) not null,
 clientID int (11) not null,
 summary text not null,
-medium enum('phone_call', 'text_message', 'email', 'in_person', 'voice_mail', 'postal_letter', 'video_conference', 'instant_messanger') not null,
+medium enum('phone_call', 'text_message', 'email', 'in_person', 'voice_mail', 'postal_letter', 'video_conference', 'instant_messenger') not null,
 date date not null,
 primary key(userID, clientID),
 key ID (ID),
