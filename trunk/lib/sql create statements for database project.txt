@@ -19,7 +19,7 @@ key
 references 
 organization 
 (ID) 
-on delete set null on update set null) auto_increment=1;
+on delete set restrict on update set restrict) auto_increment=1;
 
 
 

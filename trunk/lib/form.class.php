@@ -81,7 +81,7 @@ class Form {
 	private function makeInputField($name, $value, $type, $attributes) {
 				$Input = new Input($type, $name);
 		$Input->_set("value", $value);
-		$Input->_set("attributes", $attributes);
+		$Input->_set("attributes",  $attributes);
 		return $Input->build();	
 		//return '<input type="'.$type.'" name="'.$name.'" value="'.$value.'" '.$this->buildAttributes($attributes).' />';
 	}
@@ -89,7 +89,7 @@ class Form {
 	private function makeSelectField($name, $values, $selected, $attributes) {
 		$Input = new Input("select", $name);
 		$Input->_set("options", $values);
-		$Input->_set("attributes", $attributes);
+		$Input->_set("attributes", $attribute);
 		return $Input->build();		
 		//return '<select name="'.$name.'" '.$this->buildAttributes($attributes).'>'.$this->buildOptions($values, $selected).'</select>';
 	}
