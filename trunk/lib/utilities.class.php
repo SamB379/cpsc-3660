@@ -42,7 +42,18 @@ class Utilities {
 					if (in_array($key, $fields)) {
 						if (strtolower($key) == "id")
 							$ID = $d;	
-						$oData .= '<td>'.$d.'</td>';
+							
+						$forign_keys = array("orgid"=>"organization");
+
+						/*if (array_key_exists(strtolower($key), $forign_keys)) {
+							
+							$this->super->Database->setTable($forign_keys(strtolower($key)));
+							$row = $this->super->Database->selectRow($d);
+							echo $row['name'];
+							$oData .= '<td>'.$row['name'].'</td>';
+						}
+						else */
+							$oData .= '<td>'.$d.'</td>';
 					}
 				}
 				$oData .= '<td><a href="?action=edit&table='.$_GET['table'].'&ID='.$ID.'">Edit</a></td>';
@@ -105,10 +116,10 @@ class Utilities {
 			
 			if (!$custom_flag) {
 			switch($types[$key]) {
-				case 3: case 253: case 246: case 254: $Form->text($this->rmUnderscore($field), $field, $selection[$field]); break;
+				 case 253: case 254: $Form->text($this->rmUnderscore($field), $field, $selection[$field]); break;
 				case 252: $Form->textarea($this->rmUnderscore($field), $field, $selection[$field]); break;
-				case 10: $Form->date($this->rmUnderscore($field), $field, (!is_null($selectID)?$selection[$field]:date("Y-m-d")), array("class"=>"datepicker"));
-			
+				case 10: $Form->date($this->rmUnderscore($field), $field, (!is_null($selectID)?$selection[$field]:date("Y-m-d")), array("class"=>"datepicker")); break;
+				case 246: case 3: $Form->text($this->rmUnderscore($field), $field, $selection[$field], array("class"=>"numeric")); break;
 			}
 			}
 			}

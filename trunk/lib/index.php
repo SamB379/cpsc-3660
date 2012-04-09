@@ -194,7 +194,7 @@ $tables = array("users", "client", "supplier", "partner", "organization", "custo
 							end($Input)->addOption("Female", "female");
 							
 							$Input[] = new Input("select", "medium");
-							$mediums = array('phone_call','text_message','email','in_person','voice_mail','postal_letter','video_conference','instant_messanger');
+							$mediums = array('phone_call','text_message','email','in_person','voice_mail','postal_letter','video_conference','instant_messenger');
 							end($Input) -> addOption('--SELECT--', 0);
 							foreach($mediums as $medium)
 								end($Input)->addOption($Core->Utilities->rmUnderscore($medium), $medium);

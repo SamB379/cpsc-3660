@@ -52,6 +52,7 @@ h1.notice, div.notice, div.footnotes {
 
 .error, .success, .notice {
     clear: both;
+	padding: 5px;
 }
 
 img.icon { vertical-align: middle; margin-left: 10px;  } 
@@ -69,7 +70,8 @@ div.form_row label {
 	
 }
 div.form_row input {
-	float: left;	
+	float: left;
+	margin-bottom: 10px;
 }
 
 div.form_row:hover { background-color: #f9f9f9; }
