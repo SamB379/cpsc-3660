@@ -72,7 +72,7 @@ class Input {
 				$data = '<select name="'.$this->name.'"'.$this->buildAttributes().'>'.$this->buildOptions().'</select>';
 			break;
 			default:
-				var_dump($this->attributes);
+				
 				$data .= '<input name="'.$this->name.'" type="'.$this->type.'" value="'.$this->value.'" '.$this->buildAttributes().' />';
 			break;
 		}
