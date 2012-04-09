@@ -43,17 +43,16 @@ class Utilities {
 						if (strtolower($key) == "id")
 							$ID = $d;	
 							
-						$forign_keys = array("orgid"=>"organization");
-
-						/*if (array_key_exists(strtolower($key), $forign_keys)) {
+						$forign_keys = array("orgid"=>"organization", "userid"=>"users", "clientid"=>"client", "supplierid"=>"supplier", "partnerid"=>"partner", "customerid"=>"customer");
+						if (array_key_exists(strtolower($key), $forign_keys)) {
 							
-							$this->super->Database->setTable($forign_keys(strtolower($key)));
+							$this->super->Database->setTable($forign_keys[strtolower($key)]);
 							$row = $this->super->Database->selectRow($d);
-							echo $row['name'];
+							
 							$oData .= '<td>'.$row['name'].'</td>';
 						}
-						else */
-							$oData .= '<td>'.$d.'</td>';
+						else 
+							$oData .= '<td>'.$this->rmUnderscore($d).'</td>';
 					}
 				}
 				$oData .= '<td><a href="?action=edit&table='.$_GET['table'].'&ID='.$ID.'">Edit</a></td>';
