@@ -14,6 +14,10 @@ class Input {
 		$this->type = $type;
 		$this->name = $name;
 		$this->selected = null;
+		
+		//lets set required for every input field. 
+		$this->attributes["class"] = "required";
+		$this->attributes["title"] = "";
 	}
 	
 
@@ -30,7 +34,22 @@ class Input {
 	
 		
 		if (key_exists($var, get_class_vars(__CLASS__))) {
-			$this->$var = $value;
+			if ($var == "attributes") {
+				
+				if ($value != NULL)
+					
+					//check to see if it exists in the array 
+					foreach($value as $key=>$val) {
+						if(array_key_exists($key, $this->attributes)) {
+							$this->attributes[$key] .= " ".$val;
+							unset($this->$value[$key]);
+						}
+					}
+					
+					$this->attributes = array_merge($value, $this->attributes);
+				}
+			else			
+				$this->$var = $value;
 		}
 		
 	}
