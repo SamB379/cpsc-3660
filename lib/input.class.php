@@ -35,9 +35,8 @@ class Input {
 		
 		if (key_exists($var, get_class_vars(__CLASS__))) {
 			if ($var == "attributes") {
-				
-				if ($value != NULL)
 					
+					if ($value != NULL) {
 					//check to see if it exists in the array 
 					foreach($value as $key=>$val) {
 						if(array_key_exists($key, $this->attributes)) {
@@ -47,13 +46,14 @@ class Input {
 					}
 					
 					$this->attributes = array_merge($value, $this->attributes);
+					}
 				}
 			else			
 				$this->$var = $value;
 		}
 		
 	}
-	
+
 
 	public function addOption($label, $value) {
 		$this->options[$value] = $label;
@@ -72,7 +72,7 @@ class Input {
 				$data = '<select name="'.$this->name.'"'.$this->buildAttributes().'>'.$this->buildOptions().'</select>';
 			break;
 			default:
-				
+				var_dump($this->attributes);
 				$data .= '<input name="'.$this->name.'" type="'.$this->type.'" value="'.$this->value.'" '.$this->buildAttributes().' />';
 			break;
 		}
