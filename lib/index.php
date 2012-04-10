@@ -1,4 +1,4 @@
-<?php
+<?php session_start();
 
 //File is like main. Lets do tests and stuffs here :D
 
@@ -23,6 +23,12 @@ $Core -> setDefaultPage("viewmainmenu");
 //Page Variable
 $p = $Core -> get();
 
+
+if ($p == "logout") {
+	unset($_SESSION['username']);
+	unset($_SESSION['password']);
+}
+
 $Site -> setTitle("Client Relation Management");
 $Site -> addCSS("./css/easy.css");
 $Site -> addCSS("./css/style.css");
@@ -36,12 +42,38 @@ $Form = new Form();
 
 echo $Site -> startDraw();
 
+
+if (isset($_POST['submit'])) {
+	
+	$Core->Database->setTable('users');
+	
+	$conditions['username']['='] = $_POST['username'];
+	$result = $Core->Database->selectRows($conditions);
+	
+	if (is_array($result)) {
+		
+		foreach($result as $r) {
+			if ($_POST['password'] == $r['password']) {
+				$_SESSION['username'] = $r['username'];
+				$_SESSION['password'] = $r['password'];
+			}
+		}
+		
+	}
+	
+	 echo $Core -> displayDBErrors(); 
+	
+}
+
+if (isset($_SESSION['username']) && isset($_SESSION['password'])) {
+
 $tables = array("users", "client", "supplier", "partner", "organization", "customer", "commrecord", "association");
 
 ?>
 <div id="container">
 	<div id="header" class="inner">
 		<h1>Client Relational Management</h1>
+		(<a href="?p=logout">Logout</a>)
 		<ul id="nav" class="inner">
 		<?
 		
@@ -233,4 +265,38 @@ $tables = array("users", "client", "supplier", "partner", "organization", "custo
 	</div>
 	<div id="footer"></div>
 </div>
-<? echo $Site -> endDraw();?>
+<? 
+
+} else {
+	?>
+	<div id="container">
+		<div id="header" class="inner">
+			<h1>Login</h1>
+		</div>
+		<div class="content">
+			<div class="main">
+				
+				<form method="POST">
+				<div class="form_row">
+				<label>Username</label>
+				<input type="text" name="username" value="" />
+				</div>
+				<div class="form_row">
+				<label>Password</label>
+				<input type="password" name="password" value="" />
+				</div>
+				<div class="form_row">
+				<label></label>
+				<input type="submit" name="submit" value="Login" />
+				</div>
+				
+			</div>		
+		</div>
+		
+	</div>
+	
+	<?
+	
+}
+
+echo $Site -> endDraw();?>
