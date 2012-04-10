@@ -110,3 +110,13 @@ foreign key (partnerID) references partner (ID) on delete restrict on update cas
 engine=innodb
 auto_increment=1;
 //////////////////////////////////////////////////////////////////
+
+
+insert into customer values ('0','0','0','0000-00-00','NULL (default)')
+update customer set ID = 0 where name="NULL (default)"
+
+insert into partner values ('0','0','0','0000-00-00','NULL (default)')
+update partner set ID = 0 where name="NULL (default)"
+
+insert into supplier values ('0','0','0','0000-00-00','NULL (default)')
+update supplier set ID = 0 where name="NULL (default)"
