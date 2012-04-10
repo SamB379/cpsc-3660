@@ -96,6 +96,7 @@ customerID int(11) default null,
 supplierID int(11) default null,
 partnerID int(11) default null,
 primary key (ID),
+foreign key (clientID) references client (ID) on delete restrict on update restrict,
 foreign key (customerID) references customer (ID) on delete restrict on update restrict,
 foreign key (supplierID) references supplier (ID) on delete restrict on update restrict,
 foreign key (partnerID) references partner (ID) on delete restrict on update restrict)
