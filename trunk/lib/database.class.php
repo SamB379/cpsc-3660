@@ -388,7 +388,7 @@ class Database {
 					$query = substr($query, 0, -6);
 				}
 			$query .= $order;
-			
+		//	var_dump($bind_values);
 			//Send the prepared statment
 			if ($stmt=$this->mysqli->prepare($query)) {
 				
