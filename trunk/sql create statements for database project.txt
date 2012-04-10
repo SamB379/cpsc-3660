@@ -62,6 +62,7 @@ ID int (11) not null auto_increment,
 total_sales decimal(10,2) not null,
 amount_owing decimal(10,2) not null,
 last_transaction_date date not null,
+name varchar(255),
 primary key (ID)
 )
 engine=innodb
@@ -73,6 +74,7 @@ ID int (11) not null auto_increment,
 owing decimal(10,2) not null,
 amount_purchased decimal(10,2) not null,
 last_transaction_date date not null,
+name varchar(255),
 primary key (ID)
 )
 engine=innodb
@@ -86,6 +88,7 @@ ID int (11) not null auto_increment,
 contract_start date not null,
 contract_end date not null,
 venture_info text not null,
+name varchar(255),
 primary key (ID)
 )
 engine=innodb
