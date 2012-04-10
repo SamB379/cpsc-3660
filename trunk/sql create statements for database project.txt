@@ -120,3 +120,7 @@ update partner set ID = 0 where name="NULL (default)"
 
 insert into supplier values ('0','0','0','0000-00-00','NULL (default)')
 update supplier set ID = 0 where name="NULL (default)"
+
+////////////////////////////////////////////////////////////////////
+
+insert into users values ('0', 'Admin', 'AdminName', 'password', '10')
